@@ -6,12 +6,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: flet-dev/build-flet-app-action@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          module_name: ark_spy.py
-          build_type: apk
-      - uses: actions/upload-artifact@v3
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install flet
+
+      - name: Build APK
+        run: flet build apk --module-name ark_spy.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: app-release
           path: build/apk/app-release.apk

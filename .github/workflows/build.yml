@@ -1,0 +1,16 @@
+YAML
+name: Build APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: flet-dev/build-flet-app-action@v1
+        with:
+          module_name: ark_spy.py
+          build_type: apk
+      - uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: build/apk/app-release.apk

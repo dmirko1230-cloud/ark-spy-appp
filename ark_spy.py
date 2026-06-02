@@ -1,8 +1,7 @@
 import flet as ft
 import requests
-import webbrowser
 
-# Finale Server-Liste nach deinem Screenshot
+# Finale Server-Liste
 SERVER_LISTE = {
     "THE ISLAND":    {"id": "36953667", "url": "https://asamap.axi92.at/map/c6c6f105-06f1-41de-9f5e-9f38afe18502"},
     "EXTINCTION":    {"id": "36959230", "url": "https://asamap.axi92.at/map/558c1013-0989-40b7-86b4-bbd2b6c529a8"},
@@ -48,9 +47,10 @@ def main(page: ft.Page):
             anzahl = hole_spieler_anzahl(info["id"])
             
             if info["url"]:
+                # Hier habe ich webbrowser.open durch page.launch_url ersetzt
                 map_klick_bereich = ft.Container(
                     content=ft.Text("MAP", color="#00ffcc", weight="bold"),
-                    on_click=lambda e, u=info["url"]: webbrowser.open(u),
+                    on_click=lambda e, u=info["url"]: page.launch_url(u),
                     padding=5,
                     bgcolor="#1a202c",
                     border_radius=5
